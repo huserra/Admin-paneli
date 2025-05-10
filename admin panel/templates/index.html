@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Locker - Admin Panel</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='images/smrtlocker.jpg') }}" alt="Smart Locker Logo" class="logo">
+        </div>
+        <div class="profile">
+            <img src="{{url_for('static', filename='images/profile.jpg')}}" alt="Profile Picture" class="profile-image">
+            <h5>Serra Hu</h5>
+        </div>
+        <a href="#dashboard">📊 Dashboard</a>
+        <a href="#users">👥 Customer Management</a>
+        <a href="#lockers">🔒 Locker Management</a>
+        <a href="#reservations">📅 Reservation Management</a>
+        <a href="#payments">💳 Payment Management</a>
+        <a href="#notifications">🔔 Notifications</a>
+        <a href="{{ url_for('logout') }}">🚪 Logout</a>
+    </div>
+    <div class="content">
+        <!-- Toast container for notifications -->
+        <div id="toastContainer" class="toast-container position-fixed top-0 end-0 p-3"></div>
+        
+        <h2 id="dashboard">📊 Dashboard</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h5>👥 Number of Users</h5>
+                    <canvas id="userChart"></canvas>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h5>🔒 Locker Usage</h5>
+                    <canvas id="lockerChart"></canvas>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h5>💳 Payment Status</h5>
+                    <canvas id="paymentChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <h2 id="users">👥 Customer Management</h2>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="search-box">
+                <input type="text" class="form-control" id="userSearch" placeholder="Search customers...">
+            </div>
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                <!-- Customer data will be loaded here -->
+            </tbody>
+        </table>
+
+        <h2 id="lockers">🔒 Locker Management</h2>
+        <div class="card">
+            <div class="search-box mb-3">
+                <input type="text" class="form-control" id="lockerSearch" placeholder="Search lockers...">
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Locker ID</th>
+                            <th>Status</th>
+                            <th>Assigned User</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lockerTableBody">
+                        <!-- Locker data will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <h2 id="reservations">📅 Reservation Management</h2>
+        <div class="card">
+            <div class="search-box mb-3">
+                <input type="text" class="form-control" id="reservationSearch" placeholder="Search reservations...">
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Locker ID</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reservationTableBody">
+                        <!-- Reservation data will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <h2 id="payments">💳 Payment Management</h2>
+        <div class="card">
+            <div class="search-box mb-3">
+                <input type="text" class="form-control" id="paymentSearch" placeholder="Search payments...">
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="paymentTableBody">
+                        <!-- Payment data will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <h2 id="notifications">🔔 Live Notifications</h2>
+        <div class="card">
+            <div class="search-box mb-3">
+                <input type="text" class="form-control" id="notificationSearch" placeholder="Search notifications...">
+            </div>
+            <ul id="notificationList" class="list-group">
+                <!-- Notifications will be loaded here -->
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

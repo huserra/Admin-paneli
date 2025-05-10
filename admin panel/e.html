@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Locker Admin Panel</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            display: flex;
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #343a40;
+            color: white;
+            padding-top: 20px;
+            position: fixed;
+        }
+        .sidebar a {
+            padding: 10px 15px;
+            display: block;
+            color: white;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background: #495057;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            width: 100%;
+        }
+        .card {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+        }
+        .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .profile h5 {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="profile">
+            <img src="https://via.placeholder.com/40" alt="Profile Picture">
+            <h5>Serra Hu</h5>
+        </div>
+        <a href="#dashboard">📊 Dashboard</a>
+        <a href="#users">👥 User Management</a>
+        <a href="#lockers">🔒 Locker Management</a>
+        <a href="#reservations">📅 Reservation Management</a>
+        <a href="#payments">💳 Payment Management</a>
+        <a href="#notifications">🔔 Notifications</a>
+    </div>
+    <div class="content">
+        <h2 id="dashboard">📊 Dashboard</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h5>👥 Number of Users</h5>
+                    <canvas id="userChart"></canvas>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h5>🔒 Locker Usage</h5>
+                    <canvas id="lockerChart"></canvas>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h5>💳 Payment Status</h5>
+                    <canvas id="paymentChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        
+        <h2 id="users" class="mt-4">👥 User Management</h2>
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Serra Hu</td>
+                    <td>serra@example.com</td>
+                    <td>serhat@example.com</td>
+                    <td>Admin</td>
+                    <td><button class="btn btn-danger">Remove</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="lockers" class="mt-4">🔒 Locker Management</h2>
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Locker ID</th>
+                    <th>Status</th>
+                    <th>Assigned User</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>101</td>
+                    <td>Occupied</td>
+                    <td>Murat Kaya</td>
+                    <td><button class="btn btn-warning">Release</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="reservations" class="mt-4">📅 Reservation Management</h2>
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>User</th>
+                    <th>Locker ID</th>
+                    <th>Time</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Şeyda Demir</td>
+                    <td>102</td>
+                    <td>2 Hours</td>
+                    <td><button class="btn btn-danger">Cancel</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="payments" class="mt-4">💳 Payment Management</h2>
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>User</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Ahmet Aydın </td>
+                    <td>$20</td>
+                    <td>2025-03-20</td>
+                    <td>Approved</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="notifications" class="mt-4">🔔 Live Notifications</h2>
+        <div class="card p-3">
+            <ul id="notificationList" class="list-group">
+                <li>✅ New reservation created.</li>
+                <li>✅ User Şeyda Demir reserved a locker.</li>
+                <li>⚠️ Payment pending: Murat Kaya.</li>
+            </ul>
+        </div>
+
+        <script>
+            new Chart(document.getElementById('userChart').getContext('2d'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Active Users', 'Passive Users'],
+                    datasets: [{
+                        data: [80, 20],
+                        backgroundColor: ['#007bff', '#ffc107']
+                    }]
+                }
+            });
+
+            new Chart(document.getElementById('lockerChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['Full', 'Empty'],
+                    datasets: [{
+                        data: [60, 40],
+                        backgroundColor: ['#28a745', '#dc3545']
+                    }]
+                }
+            });
+
+            new Chart(document.getElementById('paymentChart').getContext('2d'), {
+                type: 'pie',
+                data: {
+                    labels: ['Completed', 'Pending', 'Cancelled'],
+                    datasets: [{
+                        data: [70, 20, 10],
+                        backgroundColor: ['#17a2b8', '#ffc107', '#dc3545']
+                    }]
+                }
+            });
+        </script>
+
+    
+    </div>
+</body>
+</html>
